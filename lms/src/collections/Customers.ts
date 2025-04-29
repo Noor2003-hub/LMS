@@ -5,6 +5,10 @@ export const Customers: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
   },
+  access:{
+    create:()=>true,
+    
+  }, 
   auth: true,
   fields: [
     // Email added by default
