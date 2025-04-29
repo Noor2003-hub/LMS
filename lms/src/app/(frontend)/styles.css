@@ -1,4 +1,10 @@
 @import "tailwindcss";
+
+.textInput{
+  @apply bg-black text-white  border-white rounded p-2;
+}
+
+
 :root {
   --font-mono: 'Roboto Mono', monospace;
 }
