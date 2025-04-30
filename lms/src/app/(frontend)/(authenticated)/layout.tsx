@@ -1,6 +1,6 @@
 import {redirect} from'next/navigation'
 import React,{Children, ReactNode} from 'react'
-import {getUser} from './actions/getUsers';
+import {getUser} from './_actions/getUsers';
 interface LayoutProps{
     children:ReactNode
 }

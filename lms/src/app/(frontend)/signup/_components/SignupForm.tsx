@@ -1,62 +1,54 @@
-'use client';
+'use client'
 
-import { useRouter } from "next/navigation";
-import { useState, FormEvent, ReactElement } from "react";
-import Link from "next/link";
-import { signup, SignupResponse } from "../actions/signup";
-import SubmitButton from "../../components/SubmitButton";
+import { useRouter } from 'next/navigation'
+import { useState, FormEvent, ReactElement } from 'react'
+import Link from 'next/link'
+import { signup, SignupResponse } from '../_actions/signup'
+import SubmitButton from '../../_components/SubmitButton'
 
 export default function SignupForm(): ReactElement {
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+  const [isPending, setIsPending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
 
   async function onSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault();
-    setIsPending(true);
-    setError(null);  // Reset error state
+    event.preventDefault()
+    setIsPending(true)
+    setError(null) // Reset error state
 
-    const formData = new FormData(event.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-    const confirmPassword = formData.get("confirmPassword") as string;
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const confirmPassword = formData.get('confirmPassword') as string
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      setIsPending(false);
-      return;
+      setError('Passwords do not match')
+      setIsPending(false)
+      return
     }
 
-    const result: SignupResponse = await signup({ email, password });
-    setIsPending(false);
+    const result: SignupResponse = await signup({ email, password })
+    setIsPending(false)
 
-    console.log(result);
+    console.log(result)
 
     if (result.success) {
       // Redirect manually after successful login
-      router.push("/dashboard");
+      router.push('/dashboard')
     } else {
       // Display the error message
-      setError(result.error || "Login failed");
+      setError(result.error || 'Login failed')
     }
   }
 
   return (
     <div className="flex gap-8 min-h-full flex-col justify-center items-center">
-      <div className="text-3xl">
-        Sign Up
-      </div>
+      <div className="text-3xl">Sign Up</div>
       <div className="w-full mx-auto sm:max-w-sm">
         <form className="flex flex-col gap-4" onSubmit={onSubmit}>
           <div className="flex flex-col gap-2">
             <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              className="w-full textInput"
-              required
-            />
+            <input id="email" name="email" type="email" className="w-full textInput" required />
           </div>
 
           <div className="flex flex-col gap-2">
@@ -94,5 +86,5 @@ export default function SignupForm(): ReactElement {
         </p>
       </div>
     </div>
-  );
+  )
 }
