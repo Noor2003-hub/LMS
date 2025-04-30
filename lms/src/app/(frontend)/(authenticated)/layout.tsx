@@ -1,7 +1,7 @@
 import {redirect} from'next/navigation'
 import React,{Children, ReactNode} from 'react'
 import {getUser} from './_actions/getUsers';
-import Navbar from './_components/Navbad';
+import Navbar from './_components/Navbar';
 interface LayoutProps{
     children:ReactNode
 }
