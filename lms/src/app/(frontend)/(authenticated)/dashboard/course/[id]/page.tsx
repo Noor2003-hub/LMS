@@ -1,12 +1,12 @@
 import configPromise from '@payload-config' 
 import {getPayload} from "payload"
-import { getUser } from '../../../_actions/getUsers';
+import { getUser } from './../../../_actions/getUsers';
 import { Course } from '@/payload-types';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import {HiArrowLeft, HiPencilAlt, HiVideoCamera} from 'react-icons/hi'
 import Image from 'next/image';
-
+import StartCourseButton from './_components/StartCourseButton'
 const CoursePage=async ({params}:{params:{courseId:string}})=>{
     // console.log('paramsidddd=',params.id)
     const courseId=params.id
@@ -82,6 +82,7 @@ const CoursePage=async ({params}:{params:{courseId:string}})=>{
                 })}
             </div>
         </div>
+        <StartCourseButton courseId={courseId}/>
        </div>
     )
  }
