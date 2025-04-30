@@ -239,7 +239,7 @@ export interface Course {
  */
 export interface Participation {
   id: string;
-  customer: string | Customer;
+  customer: string;
   course: string | Course;
   progress?: number | null;
   updatedAt: string;

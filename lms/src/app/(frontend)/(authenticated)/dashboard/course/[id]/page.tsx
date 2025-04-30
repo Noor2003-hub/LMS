@@ -1,18 +1,19 @@
 import configPromise from '@payload-config' 
 import {getPayload} from "payload"
 import { getUser } from './../../../_actions/getUsers';
-import { Course } from '@/payload-types';
+import { Course, Participation } from '@/payload-types';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import {HiArrowLeft, HiPencilAlt, HiVideoCamera} from 'react-icons/hi'
 import Image from 'next/image';
 import StartCourseButton from './_components/StartCourseButton'
+import { ResumeButtom } from './_components/ResumeButton';
 const CoursePage=async ({params}:{params:{courseId:string}})=>{
     // console.log('paramsidddd=',params.id)
     const courseId=params.id
     // console.log('courseId==',courseId)
     const payload=await getPayload({config:configPromise})
-    const user= await getUser
+    const user= await getUser()
     let course:Course |null=null;
     
     try{
@@ -29,6 +30,26 @@ const CoursePage=async ({params}:{params:{courseId:string}})=>{
     }
     if (!course){
         return notFound()
+    }
+    let participation:Participation |null=null
+    try{
+        const participationRes=await payload.find({
+            collection:"participation",
+            where:{
+                course:{
+                    equals:courseId
+                },
+                customer:{
+                    equals:user?.email
+                },
+                
+            },
+            overrideAccess:false,
+            user:user
+        })
+        participation=participationRes?.docs[0]||null
+    }catch(err){
+        console.error(err)
     }
     return(
        <div className='w-full max-w-4xl mx-auto p-6 flex flex-col gap-6'>
@@ -82,7 +103,8 @@ const CoursePage=async ({params}:{params:{courseId:string}})=>{
                 })}
             </div>
         </div>
-        <StartCourseButton courseId={courseId}/>
+        {participation?(<ResumeButtom participation={participation}/>):<StartCourseButton courseId={courseId}/>}
+        
        </div>
     )
  }

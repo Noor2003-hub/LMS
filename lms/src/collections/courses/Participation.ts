@@ -4,22 +4,22 @@ export const Participation: CollectionConfig = {
   slug: "participation",
   access: {
     read: ({ req: { user } }) => {
-      return { customer: { equals: user?.id } };
+      return { customer: { equals: user?.email } };
+    },
+    update: ({ req: { user } }) => {
+      return { customer: { equals: user?.email } };
+    },
+    delete: ({ req: { user } }) => {
+      return { customer: { equals: user?.email } };
     },
     create: ({ req: { user }, data }) => {
-      if(user?.collection === "users"){ 
+      if (user?.collection === "users") {
         return true;
-      } else if (user?.collection === "customers" && data?.customer === user?.id) {
+      } else if (user?.collection === "customers" && data?.customer === user?.email) {
         return true;
       } else {
         return false;
       }
-    },
-    update: ({ req: { user } }) => {
-      return { customer: { equals: user?.id } };
-    },
-    delete: ({ req: { user } }) => {
-      return { customer: { equals: user?.id } };
     }
   },
   admin: {
@@ -29,9 +29,8 @@ export const Participation: CollectionConfig = {
     {
       name: "customer",
       label: "Customer",
-      type: "relationship",
-      relationTo: "customers",
-      required: true,
+      type:'text',
+      required:true
     },
     {
       name: "course",
