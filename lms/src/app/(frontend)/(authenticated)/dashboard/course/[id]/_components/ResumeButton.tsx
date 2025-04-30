@@ -12,7 +12,7 @@ export function ResumeButtom({participation}:{participation:Participation}){
         className="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold rounded overflow-hidden transition ease-in-out">
         <div className="flex flex-row items-center justify-between pl-2">
             <p className="text-sm font-semibold">{course.title}</p>
-            <div className="flex items-center justify-center  h-12 w-12">
+            <div className="flex items-center justify-center bg-teal-600 h-18 w-18">
                 <HiPlay className="w-6 h-6"></HiPlay>
             </div>
         </div>

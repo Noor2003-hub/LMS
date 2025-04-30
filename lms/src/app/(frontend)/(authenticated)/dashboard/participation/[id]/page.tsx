@@ -5,6 +5,9 @@ import { Course, Participation } from '@/payload-types';
 
 import { notFound } from 'next/navigation';
 import { getUser } from '../../../_actions/getUsers';
+import Link from 'next/link';
+import { HiArrowLeft } from 'react-icons/hi';
+import CourseViwer from './_components/CourseViewer';
 const CoursePage=async ({params}:{params:{participationId:string}})=>{
     const participationId=params.id
     const payload=await getPayload({config:configPromise})
@@ -27,7 +30,13 @@ const CoursePage=async ({params}:{params:{participationId:string}})=>{
         return notFound()
     }
     return(
-        <div>{participation.course.title}</div>
+        <div className='flex flex-col mx-auto w-full max-w-4xl p-4 gap-4'>
+            <Link href='/dashboard' className='inline-flex items-center gap-2 text-sm text-gray-300 hover:text-white transition duration-300 ease-in-out'>
+            <HiArrowLeft className='text-lg'/>
+            Back to Dashboard
+            </Link>
+            <CourseViwer participation={participation}/>
+            </div>
     )
 }
 export default CoursePage
