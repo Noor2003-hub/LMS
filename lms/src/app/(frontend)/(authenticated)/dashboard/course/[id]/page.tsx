@@ -40,7 +40,7 @@ const CoursePage=async ({params}:{params:{courseId:string}})=>{
                     equals:courseId
                 },
                 customer:{
-                    equals:user?.email
+                    equals:user?.id
                 },
                 
             },

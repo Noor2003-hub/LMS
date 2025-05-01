@@ -20,6 +20,7 @@ export const Courses: CollectionConfig = {
   },
   admin: {
     useAsTitle: "title",
+    group:"Courses"
   },
   fields: [
     {

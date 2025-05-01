@@ -185,6 +185,7 @@ export interface Media {
  */
 export interface Customer {
   id: string;
+  name: string;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -239,7 +240,7 @@ export interface Course {
  */
 export interface Participation {
   id: string;
-  customer: string;
+  customer: string | Customer;
   course: string | Course;
   progress?: number | null;
   updatedAt: string;
@@ -363,6 +364,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "customers_select".
  */
 export interface CustomersSelect<T extends boolean = true> {
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

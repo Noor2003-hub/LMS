@@ -1,35 +1,31 @@
 "use server"
 import configPromise from '@payload-config' 
-import { getPayload } from "payload"
+import {getPayload} from "payload"
 import { getUser } from './getUsers';
 import { Course, Participation } from '@/payload-types';
 import { notFound } from 'next/navigation';
-
-export async function participate({ courseId }: { courseId: string }) {
-  const payload = await getPayload({ config: configPromise })
-  const user = await getUser()
-  if (!user) {
-    throw new Error("User not found")
-  }
-
-  try {
-    // Fetch the customer email from the user object
-    const customerEmail = user.email;
-
-    const createdParticipation = await payload.create({
-      collection: 'participation',
-      data: {
-        course: courseId,
-        customer: customerEmail,  // Store the customer's email instead of their ID
-        progress: 0
-      },
-      overrideAccess: false,
-      user: user
-    })
-
-    return createdParticipation
-  } catch (err) {
-    console.error(err)
-    throw new Error("Error creating participation")
-  }
+import { console } from 'inspector';
+export async function participate({courseId}:{courseId:string}){
+    const payload=await getPayload({config:configPromise})
+    const user= await getUser()
+    if (!user){
+        throw new Error("User not found")
+    }
+    console.log('user==',user)
+    try{
+        const createdParticipation=await payload.create({
+            collection:'participation',
+            data:{
+                course:courseId,
+                customer:user.id,
+                progress:0
+            },
+            overrideAccess:false,
+            user:user
+        })
+        return createdParticipation
+    }catch(err){
+        console.error(err)
+        throw new Error("Error creating participation")
+    }
 }
